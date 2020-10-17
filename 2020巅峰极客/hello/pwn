@@ -1,0 +1,23 @@
+from ctypes import *
+import sys
+libc=CDLL('libc.so.6')
+
+printf=libc.printf
+read=libc.read
+strcmp=libc.strcmp
+
+
+secret = c_char_p("FLAGISHERE?")
+i = c_char_p("YOURINPUT")
+
+printf("Can you find my secret?\n")
+
+addr=c_ulong(id(i))
+read(0,addr,0x30)
+if strcmp(i,secret) == 0:
+    wins=raw_input("Congratulations, please input your name: ")
+    printf(wins+', you can modify a addr')
+    addr.value=int(raw_input(),16)
+    read(0,addr,8)
+
+printf("byebye~\n")

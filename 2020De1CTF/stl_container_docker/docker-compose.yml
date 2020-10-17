@@ -1,0 +1,9 @@
+version: "3"
+services:
+  stl_container:
+    build: .
+    restart: unless-stopped
+    ulimits:
+        nproc: 12333
+    ports:
+      - "8848:4242"
